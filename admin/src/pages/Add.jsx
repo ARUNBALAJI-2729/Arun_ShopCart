@@ -405,18 +405,30 @@ const Add = ({ token }) => {
       </div>
 
 
-	   {/* Size */}
-	   <div className="w-full">
-        <p className="mb-2">Product Size</p>
-        <select onChange={(e) => setSize(e.target.value)} className="w-full  max-w-[500px] px-3 py-2" required>
-          <option value="">Select Size</option>
-          {sizes.map((sizeOption, index) => (
-            <option key={index} value={sizeOption}>
-              {sizeOption}
-            </option>
-          ))}
-        </select>
-      </div>
+    {/* Product Size */}
+<div className="w-full">
+  <p className="mb-2">Product Size</p>
+  <div className="flex flex-wrap gap-3">
+    {getCategorySizes(category).map((sizeOption, index) => (
+      <label key={index} className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          value={sizeOption}
+          onChange={(e) => {
+            if (e.target.checked) {
+              setSizes((prevSizes) => [...prevSizes, sizeOption]);
+            } else {
+              setSizes((prevSizes) => prevSizes.filter((size) => size !== sizeOption));
+            }
+          }}
+          checked={sizes.includes(sizeOption)} // Reflects only when user checks a box
+        />
+        {sizeOption}
+      </label>
+    ))}
+  </div>
+</div>
+
 
       {/* Price */}
       <div className="w-full">
